@@ -6,7 +6,6 @@ and concise response constraints.
 """
 
 import shutil
-from typing import Optional
 
 from askai.providers.base import Provider
 
@@ -20,9 +19,9 @@ class ClaudeProvider(Provider):
 
     # Model mappings - using latest Claude 4.5 series (as of October 2025)
     MODELS = {
-        "haiku": "claude-haiku-4-5-20251001",      # Haiku 4.5 - fastest, most cost-effective
-        "sonnet": "claude-sonnet-4-5-20250929",    # Sonnet 4.5 - most capable
-        "opus": "claude-opus-4-1-20250805",        # Opus 4.1 - complex reasoning
+        "haiku": "claude-haiku-4-5-20251001",  # Haiku 4.5 - fastest, most cost-effective
+        "sonnet": "claude-sonnet-4-5-20250929",  # Sonnet 4.5 - most capable
+        "opus": "claude-opus-4-1-20250805",  # Opus 4.1 - complex reasoning
     }
 
     # Shorter aliases for convenience
@@ -70,7 +69,7 @@ class ClaudeProvider(Provider):
         """
         return shutil.which("claude") is not None
 
-    def _resolve_model(self, model: Optional[str]) -> str:
+    def _resolve_model(self, model: str | None) -> str:
         """Resolve model alias to canonical model identifier.
 
         Args:
@@ -100,7 +99,7 @@ class ClaudeProvider(Provider):
 
         return self.MODELS[model]
 
-    def build_command(self, prompt: str, model: Optional[str] = None) -> list[str]:
+    def build_command(self, prompt: str, model: str | None = None) -> list[str]:
         """Build the Claude CLI command.
 
         Constructs a command that:
@@ -131,11 +130,7 @@ class ClaudeProvider(Provider):
 
         # Build command
         # Note: claude command format is: claude [options] "prompt"
-        command = [
-            "claude",
-            "--model", model_id,
-            concise_prompt
-        ]
+        command = ["claude", "--model", model_id, concise_prompt]
 
         return command
 
