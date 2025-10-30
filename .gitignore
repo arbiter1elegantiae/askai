@@ -47,3 +47,6 @@ htmlcov/
 
 # uv
 .uv/
+
+# Agent development documentation
+.agent/
