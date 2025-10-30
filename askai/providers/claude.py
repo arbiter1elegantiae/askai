@@ -128,9 +128,13 @@ class ClaudeProvider(Provider):
         # Prepend instruction for concise responses to the prompt
         concise_prompt = f"Answer concisely in under 100 words: {prompt}"
 
-        # Build command
-        # Note: claude command format is: claude [options] "prompt"
-        command = ["claude", "--model", model_id, concise_prompt]
+        # Build command for one-shot, non-interactive mode
+        # Use -p/--print flag to get response without entering interactive UI
+        command = [
+            "claude",
+            "-p", concise_prompt,  # One-shot mode (print and exit)
+            "--model", model_id,
+        ]
 
         return command
 
