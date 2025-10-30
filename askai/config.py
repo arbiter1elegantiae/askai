@@ -17,7 +17,7 @@ Default configuration structure:
 import json
 import os
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 
 class ConfigManager:
@@ -37,7 +37,7 @@ class ConfigManager:
         "max_response_words": 100,
     }
 
-    def __init__(self, config_path: Optional[Path] = None):
+    def __init__(self, config_path: Path | None = None):
         """Initialize configuration manager.
 
         Args:
@@ -62,7 +62,7 @@ class ConfigManager:
         """Load configuration from file or create with defaults."""
         if self.config_path.exists():
             try:
-                with open(self.config_path, "r", encoding="utf-8") as f:
+                with open(self.config_path, encoding="utf-8") as f:
                     loaded_config = json.load(f)
 
                 # Merge loaded config with defaults (in case new keys are added)
@@ -173,7 +173,7 @@ class ConfigManager:
         """
         return self.get("default_provider", "claude")
 
-    def get_default_model(self, provider: str) -> Optional[str]:
+    def get_default_model(self, provider: str) -> str | None:
         """Get the default model for a specific provider.
 
         Args:

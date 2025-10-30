@@ -6,7 +6,6 @@ provider's tool (e.g., claude, gemini).
 """
 
 from abc import ABC, abstractmethod
-from typing import Optional
 
 
 class Provider(ABC):
@@ -20,7 +19,7 @@ class Provider(ABC):
     """
 
     @abstractmethod
-    def build_command(self, prompt: str, model: Optional[str] = None) -> list[str]:
+    def build_command(self, prompt: str, model: str | None = None) -> list[str]:
         """Build the CLI command to execute for this provider.
 
         This method should construct a command that:
